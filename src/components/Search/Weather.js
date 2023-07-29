@@ -3,11 +3,17 @@ import Searchbar from "./Searchbar";
 import Cards from "../UI/Cards";
 
 const Weather = (props) => {
+
+    const collectCityName = (city) => {
+        console.log("collected city is >>>>> ", city);
+        props.onSave(city, "yes");
+    }
+
     return (
         <>
-            <Searchbar />
+            <Searchbar onSearch={collectCityName}/>
             <Cards>
-                Temp 30
+
             </Cards>
         </>
     )

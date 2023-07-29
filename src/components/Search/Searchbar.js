@@ -8,11 +8,10 @@ const Searchbar = (props) => {
     const [city, setCity] = useState("");
 
     const cityHandler = (event) => {
-        console.log(event.target.value);
         setCity(event.target.value)
     }
-    const submitHandler = (event) => {
-        console.log("city is >>>> ", city);
+    const getCityName = (event) => {
+        props.onSearch(city);
     }
 
 
@@ -21,7 +20,7 @@ const Searchbar = (props) => {
             <div className="search">
                 <input type="text" className="searchTerm" placeholder="Enter Your City" value={city} onChange={cityHandler}/>
             </div>
-                <Button type="submit" onClick={submitHandler}>Search</Button>
+                <Button type="submit" onClick={getCityName}>Search</Button>
         </>
     )
 }
