@@ -1,0 +1,22 @@
+.button{
+    border: 2px solid #ecf2f7;
+    border-radius: 5px;
+    background: #2bbb8b;
+    width: 200px;
+    height: 40px;
+    color: white;
+    padding: 0.25rem 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: calc(6px + 2vmin);
+}
+
+.button:hover, .button:active{
+    background: #741188;
+    border: 2px solid #ecf2f7;
+}
+
+.button:focus {
+    outline: none;
+  }
