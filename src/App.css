@@ -1,6 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
 .main {
   /* background-image: "images/bkg.jpg"; */
-  @import url(https://fonts.googleapis.com/css?family=Open+Sans);
   background: url("./images/background.jpg");
   background-repeat: no-repeat;
   background-attachment: fixed;
