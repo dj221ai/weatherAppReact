@@ -5,7 +5,6 @@ import './App.css';
 function App() {
 
   // let url1="http://api.weatherapi.com/v1/current.json?key=6d8c5fb49ee64f1baa262024232907&q=Mumbai&aqi=yes";
-  // let url="http://api.weatherapi.com/v1";
 
   const [inputCity, setInputCity] = useState("");
   // const [airQuality, setAirQuality] = useState("no");
@@ -33,11 +32,11 @@ function App() {
 
 
   const getCityData = (inputCity) => {
-    console.log("input city is >>> ", inputCity);
+    // console.log("input city is >>> ", inputCity);
     setInputCity(inputCity);
   }
-  console.log("input city >>> ", inputCity)
-  console.log("data >>> ", data);
+  // console.log("input city >>> ", inputCity)
+  // console.log("data >>> ", data);
   
   
 
