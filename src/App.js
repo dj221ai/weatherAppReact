@@ -12,12 +12,20 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-        const url = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`
-        console.log("url >>> ", url);
-        const response = await fetch(url);
-        console.log(response);
-        const resJson = await response.json();
-        setData(resJson);
+
+        navigator.geolocation.getCurrentPosition(function (position) {
+          console.log("latitude>>> ", position.coords.latitude);
+          console.log("longitude>>> ", position.coords.latitude);
+          console.log("postion >>> ", position);
+        })
+      
+        // const url = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`
+        // console.log("url >>> ", url);
+        // const response = await fetch(url);
+        // console.log(response);
+        // const resJson = await response.json();
+        // console.log("data >>> ", resJson);
+        // setData(resJson);
         // await fetch(url)
         // .then(res => res.json())
         // .then(result => {
