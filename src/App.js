@@ -9,29 +9,49 @@ function App() {
   const [inputCity, setInputCity] = useState("");
   // const [airQuality, setAirQuality] = useState("no");
   const [data, setData] = useState();
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [cityData, setCityData] = useState();
+
+  useEffect ( () => {
+    const fetchcity =   () => navigator.geolocation.getCurrentPosition(function (position){
+      // console.log("lat >> ", position.coords.latitude);
+      // console.log("long >> ", position.coords.longitude);
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
+      const url1 = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}`;
+      // console.log("url1>>>>> ", url1);
+      fetch(url1)
+      .then(response => response.json())
+      .then(jsondata => {
+        console.log(jsondata);
+        setCityData(jsondata)
+      })
+        // console.log(result);
+      // const latlongjson = response;
+      // console.log("lat long ", latlongjson);
+    });
+    
+    console.log("lat1 >> ", latitude);
+    console.log("long1 >> ", longitude);
+    // console.log("cityData >> ", cityData);
+    
+    fetchcity();
+    
+    
+  }, [latitude, longitude])
+  // console.log("cityData1 >> ", cityData);
 
   useEffect(() => {
     const fetchData = async () => {
-
-        navigator.geolocation.getCurrentPosition(function (position) {
-          console.log("latitude>>> ", position.coords.latitude);
-          console.log("longitude>>> ", position.coords.latitude);
-          console.log("postion >>> ", position);
-        })
-      
-        // const url = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`
-        // console.log("url >>> ", url);
-        // const response = await fetch(url);
-        // console.log(response);
-        // const resJson = await response.json();
-        // console.log("data >>> ", resJson);
-        // setData(resJson);
-        // await fetch(url)
-        // .then(res => res.json())
-        // .then(result => {
-        //   console.log(result);
-        //   setData(result)
-        // });
+      const cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
+      // setUrl(cityUrl);
+      console.log("url >>> ", cityUrl);
+      const response = await fetch(cityUrl);
+      // console.log(response);
+      const resJson = await response.json();
+      console.log("data >>> ", resJson);
+      setData(resJson);
     };
 
     fetchData();
