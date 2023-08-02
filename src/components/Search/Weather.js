@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Searchbar from "./Searchbar";
 import Cards from "../UI/Cards";
 
@@ -8,13 +8,18 @@ const Weather = (props) => {
         console.log("collected city is >>>>> ", city);
         props.onSave(city, "yes");
     }
-    // console.log(props.getLocation)
+    // console.log("data n citydata >>. ", props.data, props.cityData1);
+    let data = props.data
+    let cityData = props.cityData1
+    console.log("data n citydata >>. ", data, cityData);
+
 
     return (
         <>
             <Searchbar onSearch={collectCityName}/>
-            {/* <Cards>
-            </Cards> */}
+            <Cards>
+                {/* <p>{cityData.location.name}</p> */}
+            </Cards>
         </>
     )
 }

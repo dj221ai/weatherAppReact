@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useCallback} from 'react';
+import React, {useState, useEffect} from 'react';
 import Weather from './components/Search/Weather';
 import './App.css';
 
@@ -9,38 +9,24 @@ function App() {
   const [inputCity, setInputCity] = useState("");
   // const [airQuality, setAirQuality] = useState("no");
   const [data, setData] = useState();
-  const [latitude, setLatitude] = useState("");
-  const [longitude, setLongitude] = useState("");
+  // const [latitude, setLatitude] = useState("");
+  // const [longitude, setLongitude] = useState("");
   const [cityData, setCityData] = useState();
 
-  useEffect ( () => {
-    const fetchcity =   () => navigator.geolocation.getCurrentPosition(function (position){
-      // console.log("lat >> ", position.coords.latitude);
-      // console.log("long >> ", position.coords.longitude);
-      setLatitude(position.coords.latitude);
-      setLongitude(position.coords.longitude);
-      const url1 = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}`;
-      // console.log("url1>>>>> ", url1);
-      fetch(url1)
-      .then(response => response.json())
-      .then(jsondata => {
-        console.log(jsondata);
-        setCityData(jsondata)
-      })
-        // console.log(result);
-      // const latlongjson = response;
-      // console.log("lat long ", latlongjson);
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(position => {
+      const { latitude, longitude } = position.coords;
+
+      // use the latitude and longitude to get the user's address
+      fetch(`${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}`)
+        .then(response => response.json())
+        .then(data => {
+          // setUserAddress(data.results[0].formatted_address);
+          setCityData(data);
+
+        });
     });
-    
-    console.log("lat1 >> ", latitude);
-    console.log("long1 >> ", longitude);
-    // console.log("cityData >> ", cityData);
-    
-    fetchcity();
-    
-    
-  }, [latitude, longitude])
-  // console.log("cityData1 >> ", cityData);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -72,7 +58,7 @@ function App() {
     <>
       <div className='main'>
         <h3>Weather app</h3>
-        <Weather onSave={getCityData} cityData={inputCity}/>
+        <Weather onSave={getCityData} cityData={inputCity} data={data} cityData1={cityData}/>
       </div>
     </>
   );
