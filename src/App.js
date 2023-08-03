@@ -34,23 +34,19 @@ function App() {
       setCityData(response.data);
     })
     .catch((error) => console.log("error is ", error));
-    
+
   }, [latitude, longitude]);
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     let cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
-  //     // setUrl(cityUrl);
-  //     console.log("url >>> ", cityUrl);
-  //     let response = await fetch(cityUrl);
-  //     // console.log(response);
-  //     let resJson = await response.json();
-  //     console.log("data >>> ", resJson);
-  //     setData(resJson);
-  //   };
+  useEffect(() => {
+    const fetchData = async () => {
+      let cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
+      let response = await fetch(cityUrl);
+      let resJson = await response.json();
+      setData(resJson);
+    };
 
-  //   fetchData();
-  // }, [inputCity])
+    fetchData();
+  }, [inputCity])
 
 
 
@@ -58,8 +54,6 @@ function App() {
     // console.log("input city is >>> ", inputCity);
     setInputCity(inputCity);
   }
-  // console.log("input city >>> ", inputCity)
-  // console.log("data >>> ", data);
   
   
 
