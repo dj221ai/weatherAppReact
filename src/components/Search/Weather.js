@@ -18,7 +18,7 @@ const Weather = (props) => {
         <>
             <Searchbar onSearch={collectCityName}/>
             <Cards>
-                {/* <p>{cityData.location.name}</p> */}
+                
             </Cards>
         </>
     )
