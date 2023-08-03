@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Weather from './components/Search/Weather';
 import './App.css';
+import axios from 'axios';
 
 function App() {
 
@@ -9,39 +10,47 @@ function App() {
   const [inputCity, setInputCity] = useState("");
   // const [airQuality, setAirQuality] = useState("no");
   const [data, setData] = useState();
-  // const [latitude, setLatitude] = useState("");
-  // const [longitude, setLongitude] = useState("");
-  const [cityData, setCityData] = useState();
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [cityData, setCityData] = useState({});
 
   useEffect(() => {
-    navigator.geolocation.getCurrentPosition(position => {
-      const { latitude, longitude } = position.coords;
-
-      // use the latitude and longitude to get the user's address
-      fetch(`${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}`)
-        .then(response => response.json())
-        .then(data => {
-          // setUserAddress(data.results[0].formatted_address);
-          setCityData(data);
-
-        });
+    console.log("my url >> ", process.env.REACT_APP_API_URL)
+    navigator.geolocation.getCurrentPosition((position) => {
+      // const { latitude, longitude } = position.coords;
+      console.log(position.coords.latitude, position.coords.longitude)
+      setLatitude(position.coords.latitude);
+      setLongitude(position.coords.longitude);
     });
-  }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
-      // setUrl(cityUrl);
-      console.log("url >>> ", cityUrl);
-      const response = await fetch(cityUrl);
-      // console.log(response);
-      const resJson = await response.json();
-      console.log("data >>> ", resJson);
-      setData(resJson);
-    };
+    console.log("my lat n long >>>> ", latitude, longitude);
+    // https://api.weatherapi.com/v1/current.json?key=6d8c5fb49ee64f1baa262024232907&q=19.2136765,72.8609715
 
-    fetchData();
-  }, [inputCity])
+    let finalApiEndpoint = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${latitude},${longitude}`
+    console.log("final >> ", finalApiEndpoint)
+    axios.get(finalApiEndpoint)
+    .then((response) => {
+      console.log("my data >>>>>> ", response.data);
+      setCityData(response.data);
+    })
+    .catch((error) => console.log("error is ", error));
+    
+  }, [latitude, longitude]);
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
+  //     // setUrl(cityUrl);
+  //     console.log("url >>> ", cityUrl);
+  //     let response = await fetch(cityUrl);
+  //     // console.log(response);
+  //     let resJson = await response.json();
+  //     console.log("data >>> ", resJson);
+  //     setData(resJson);
+  //   };
+
+  //   fetchData();
+  // }, [inputCity])
 
 
 
