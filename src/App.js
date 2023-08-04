@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
       // const { latitude, longitude } = position.coords;
-      console.log(position.coords.latitude, position.coords.longitude)
+      // console.log(position.coords.latitude, position.coords.longitude)
       setLatitude(position.coords.latitude);
       setLongitude(position.coords.longitude);
     });
