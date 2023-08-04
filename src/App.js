@@ -31,9 +31,12 @@ function App() {
     axios.get(finalApiEndpoint)
     .then((response) => {
       console.log("my data >>>>>> ", response.data);
-      setCityData(response.data);
+      setData(response.data);
     })
-    .catch((error) => console.log("error is ", error));
+    .catch((error) => {
+      console.log("error is ", error);
+      setData(error);
+    });
 
   }, [latitude, longitude]);
 
@@ -42,6 +45,7 @@ function App() {
       let cityUrl = `${process.env.REACT_APP_API_URL}/current.json?key=${process.env.REACT_APP_API_KEY}&q=${inputCity}`;
       let response = await fetch(cityUrl);
       let resJson = await response.json();
+      // console.log("resJson ", resJson);
       setData(resJson);
     };
 
@@ -61,7 +65,7 @@ function App() {
     <>
       <div className='main'>
         <h3>Weather app</h3>
-        <Weather onSave={getCityData} cityData={inputCity} data={data} cityData1={cityData}/>
+        <Weather onSave={getCityData} cityData={inputCity} data={data} latLonData={cityData}/>
       </div>
     </>
   );
